@@ -94,11 +94,20 @@ p {
 /* Navbar */
 #navbar {
     display: flex;
+    position: fixed;
+    width: 100%;
     justify-content: space-between;
-    background-color: var(--color-pink);
+    background-color: transparent;
     align-items: center;
     color: var(--color-white);
     padding: 16px;
+    transition: all var(--animation-duration) ease-in-out;
+}
+
+#navbar.is_active {
+    background-color: var(--color-pink);
+    font-size: var(--font-regular);
+    z-index: 1;
 }
 
 .navbar__menu {
@@ -139,6 +148,7 @@ p {
     background: url("imgs/home_background.png") center/cover no-repeat;
     padding: 40px;
     text-align: center;
+    padding-top: 120px;
 }
 
 .home__avatar {
@@ -168,6 +178,7 @@ p {
     padding: 50px;
     text-align: center;;
     margin: auto;
+    scroll-margin-top: 40px;
 }
 
 .section__container {
