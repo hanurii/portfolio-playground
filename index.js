@@ -15,6 +15,8 @@ function fixNavbar() {
 // Handle scrolling when tapping on the navbar menu
 function handleClickNavMenu() {
     const navbarMenu = document.querySelector('.navbar__menu');
+    const navbarMenus = document.querySelectorAll('.navbar__menu__item');
+
     navbarMenu.addEventListener('click', (event) => {
         const target = event.target;
         const link = target.dataset.link;
@@ -24,6 +26,13 @@ function handleClickNavMenu() {
         }
 
         scrollIntoView(link);
+
+        navbarMenus.forEach(menu => menu.classList.remove('active'));
+        navbarMenus.forEach(menu => {
+            if (menu.dataset.link === link) {
+                menu.classList.add('active');
+            }
+        })
     })
 }
 
