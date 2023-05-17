@@ -74,42 +74,45 @@ function handleClickMoveTop() {
     })
 }
 
-function handleClickWorkCategory() {
-    const workCategories = document.querySelector('.work__categories');
-    const projects = document.querySelectorAll('.project');
-    console.log(projects); 
-
-    workCategories.addEventListener('click', (event) => {
-        document.querySelector('.category__btn.active').classList.remove('active');
-        event.target.classList.add('active');
-
-        const workCategory = event.target.dataset.workCategory
-        
-        if (!workCategory) {
-            return;
-        }
-
-        if (workCategory === 'all') {
-            Array.from(projects).forEach((project) => {
-                project.style.display = 'block';
-            })
-            return;
-        }
-
-        Array.from(projects).forEach((project) => {
-            if (project.dataset.work !== workCategory) {
-                project.style.display = 'none';
-            } else {
-                project.style.display = 'block';
-            }
-        })
-    })
-}
-
 fixNavbar();
 handleClickNavMenu();
 handleClickContactMe();
 fadeOut();
 showAndHideArrowUpButton();
 handleClickMoveTop();
-handleClickWorkCategory();
+
+// Projects
+const workBtnContainer = document.querySelector('.work__categories');
+const projectContainer = document.querySelector('.work__projects');
+const projects = document.querySelectorAll('.project');
+
+workBtnContainer.addEventListener('click', (e) => {
+    const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
+    const tagName = e.target.tagName
+    const categoryBtns = document.querySelectorAll('.category__btn');
+
+    categoryBtns.forEach(btn => btn.classList.remove('active'));
+    if (tagName === 'BUTTON') {
+        e.target.classList.add('active');
+    } else if (tagName === 'SPAN') {
+        e.target.parentNode.classList.add('active');
+    }
+
+    if (filter === null) {
+        return;
+    }
+
+    projectContainer.classList.add('anim-out');
+
+    setTimeout(() => {
+        projects.forEach((project) => {
+            if (filter === '*' || filter === project.dataset.type) {
+                project.classList.remove('invisible')
+            } else {
+                project.classList.add('invisible')
+            }
+        });
+
+        projectContainer.classList.remove('anim-out');
+    }, 300);
+});
