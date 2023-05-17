@@ -74,9 +74,42 @@ function handleClickMoveTop() {
     })
 }
 
+function handleClickWorkCategory() {
+    const workCategories = document.querySelector('.work__categories');
+    const projects = document.querySelectorAll('.project');
+    console.log(projects); 
+
+    workCategories.addEventListener('click', (event) => {
+        document.querySelector('.category__btn.active').classList.remove('active');
+        event.target.classList.add('active');
+
+        const workCategory = event.target.dataset.workCategory
+        
+        if (!workCategory) {
+            return;
+        }
+
+        if (workCategory === 'all') {
+            Array.from(projects).forEach((project) => {
+                project.style.display = 'block';
+            })
+            return;
+        }
+
+        Array.from(projects).forEach((project) => {
+            if (project.dataset.work !== workCategory) {
+                project.style.display = 'none';
+            } else {
+                project.style.display = 'block';
+            }
+        })
+    })
+}
+
 fixNavbar();
 handleClickNavMenu();
 handleClickContactMe();
 fadeOut();
 showAndHideArrowUpButton();
 handleClickMoveTop();
+handleClickWorkCategory();

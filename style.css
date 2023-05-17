@@ -365,6 +365,16 @@ p {
     height: 250px;
     margin: 2px;
     background-color: var(--color-light-white);
+    animation: fadein 700ms ease-in-out;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .project__img {
