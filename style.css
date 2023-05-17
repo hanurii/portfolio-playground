@@ -512,3 +512,24 @@ p {
         height: 80px;
     }
 }
+
+/* button go top */
+.btn__go__top {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    background-color: var(--color-dark-pink);
+    right: 1.4rem;
+    bottom: 1.4rem;
+    border-radius: 50%;
+    scroll-behavior: smooth;
+    visibility: hidden;
+}
+
+.btn__go__top span {
+    display: flex;
+    justify-content: center;
+    line-height: 120px;
+    font-size: 64px;
+    color: var(--color-white);
+}
