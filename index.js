@@ -51,37 +51,32 @@ function fadeOut() {
     })
 }
 
-function goToTop() {
-    const goToTopBtn = document.querySelector('.btn__go__top');
-
+// Show "arrow up" button when scrolling down
+function showAndHideArrowUpButton() {
     document.addEventListener('scroll', () => {
-        if (window.scrollY < 300) {
-            goToTopBtn.style.visibility = 'hidden'
+        const arrowUp = document.querySelector('.arrow-up');
+        const home = document.querySelector('.home__container')
+        const homeHeight = home.getBoundingClientRect().height;
+        
+        if (window.scrollY > homeHeight / 2) {
+            arrowUp.classList.add('visible');
         } else {
-            goToTopBtn.style.visibility = 'visible'
-            goToTopBtn.style.opacity = 0 + (window.scrollY / 500)
+            arrowUp.classList.remove('visible');
         }
     })
+}
 
-    goToTopBtn.addEventListener('click', debounce(() => {
-        document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
-    }, 200))
+// Handle click on the "arrow up" button
+function handleClickMoveTop() {
+    const arrowUp = document.querySelector('.arrow-up');
+    arrowUp.addEventListener('click', () => {
+        scrollIntoView('#home');
+    })
 }
 
 fixNavbar();
 handleClickNavMenu();
 handleClickContactMe();
 fadeOut();
-goToTop();
-
-function debounce (handler, delay) {
-    let debouncer = null
-    return function () {
-      // 이벤트가 발생하면 타임아웃을 초기화
-        clearTimeout(debouncer)
-      // 이후 다시 타임아웃을 걸어준다
-        debouncer = setTimeout(() => {
-            handler.apply(this, arguments)
-        }, delay)
-    }
-}
+showAndHideArrowUpButton();
+handleClickMoveTop();
