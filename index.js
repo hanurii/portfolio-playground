@@ -40,50 +40,14 @@ function scrollIntoView(selector) {
     scrollTo.scrollIntoView({ behavior: "smooth" });
 }
 
+// Make home slowly fade to transparent as the window scrolls down
 function fadeOut() {
     window.addEventListener('scroll', (event) => {
-        const homeElement = document.querySelector('.home__container')
-        const homeScrollHeight = homeElement.scrollHeight
-
-        if (window.scrollY > 0 && window.scrollY < homeScrollHeight) {
-            homeElement.style.opacity = 1-(window.scrollY/homeScrollHeight)
-        }
-
-        const aboutElement = document.querySelector('#about')
-        const aboutScrollHeight = aboutElement.scrollHeight;
-        let prevSum = homeScrollHeight;
-        let sum = homeScrollHeight + aboutScrollHeight;
-
-        if (window.scrollY > prevSum && window.scrollY < sum) {
-            aboutElement.style.opacity = 1-((window.scrollY - prevSum)/aboutScrollHeight)
-        }
-
-        const skillsElement = document.querySelector('#skills .section__container')
-        const skillsScrollHeight = skillsElement.scrollHeight;
-        prevSum = homeScrollHeight + aboutScrollHeight;
-        sum = homeScrollHeight + aboutScrollHeight + skillsScrollHeight;
-
-        if (window.scrollY > prevSum && window.scrollY < sum) {
-            skillsElement.style.opacity = 1-((window.scrollY - prevSum)/skillsScrollHeight)
-        }
-
-        const workElement = document.querySelector('#work .section__container')
-        const workScrollHeight = workElement.scrollHeight;
-        prevSum = homeScrollHeight + aboutScrollHeight + skillsScrollHeight;
-        sum = homeScrollHeight + aboutScrollHeight + skillsScrollHeight + workScrollHeight;
-
-        if (window.scrollY > prevSum && window.scrollY < sum) {
-            workElement.style.opacity = 1-((window.scrollY - prevSum)/workScrollHeight)
-        }
-
-        const testElement = document.querySelector('#testimonials .section__container')
-        const testScrollHeight = testElement.scrollHeight;
-        prevSum = homeScrollHeight + aboutScrollHeight + skillsScrollHeight + workScrollHeight;
-        sum = homeScrollHeight + aboutScrollHeight + skillsScrollHeight + workScrollHeight + testScrollHeight;
-
-        if (window.scrollY > prevSum && window.scrollY < sum) {
-            testElement.style.opacity = 1-((window.scrollY - prevSum)/testScrollHeight)
-        }
+        const home = document.querySelector('.home__container');
+        const homeHeight = home.getBoundingClientRect().height;
+        document.addEventListener('scroll', () => {
+            home.style.opacity = 1 - window.scrollY / homeHeight;
+        })
     })
 }
 
@@ -91,3 +55,4 @@ fixNavbar();
 handleClickNavMenu();
 handleClickContactMe();
 fadeOut();
+
